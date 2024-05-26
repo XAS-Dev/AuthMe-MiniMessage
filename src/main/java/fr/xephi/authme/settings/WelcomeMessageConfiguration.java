@@ -1,6 +1,5 @@
 package fr.xephi.authme.settings;
 
-import com.google.gson.Gson;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.initialization.DataFolder;
