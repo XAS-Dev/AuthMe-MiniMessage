@@ -1,5 +1,6 @@
 package fr.xephi.authme.settings;
 
+import com.google.gson.Gson;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.data.auth.PlayerCache;
 import fr.xephi.authme.initialization.DataFolder;
@@ -10,6 +11,7 @@ import fr.xephi.authme.service.CommonService;
 import fr.xephi.authme.service.GeoIpService;
 import fr.xephi.authme.settings.properties.PluginSettings;
 import fr.xephi.authme.settings.properties.RegistrationSettings;
+import fr.xephi.authme.util.MiniMessageUtils;
 import fr.xephi.authme.util.PlayerUtils;
 import fr.xephi.authme.util.lazytags.Tag;
 import fr.xephi.authme.util.lazytags.TagReplacer;
@@ -36,7 +38,7 @@ import static fr.xephi.authme.util.lazytags.TagBuilder.createTag;
  * Configuration for the welcome message (welcome.txt).
  */
 public class WelcomeMessageConfiguration implements Reloadable {
-    
+
     private final ConsoleLogger logger = ConsoleLoggerFactory.get(WelcomeMessageConfiguration.class);
 
     @DataFolder
@@ -58,20 +60,10 @@ public class WelcomeMessageConfiguration implements Reloadable {
     @Inject
     private CommonService service;
 
-    /** List of all supported tags for the welcome message. */
-    private final List<Tag<Player>> availableTags = Arrays.asList(
-        createTag("&",             () -> String.valueOf(ChatColor.COLOR_CHAR)),
-        createTag("{PLAYER}",      HumanEntity::getName),
-        createTag("{DISPLAYNAME}", Player::getDisplayName),
-        createTag("{DISPLAYNAMENOCOLOR}", Player::getDisplayName),
-        createTag("{ONLINE}",      () -> Integer.toString(bukkitService.getOnlinePlayers().size())),
-        createTag("{MAXPLAYERS}",  () -> Integer.toString(server.getMaxPlayers())),
-        createTag("{IP}",          PlayerUtils::getPlayerIp),
-        createTag("{LOGINS}",      () -> Integer.toString(playerCache.getLogged())),
-        createTag("{WORLD}",       pl -> pl.getWorld().getName()),
-        createTag("{SERVER}",      () -> service.getProperty(PluginSettings.SERVER_NAME)),
-        createTag("{VERSION}",     () -> server.getBukkitVersion()),
-        createTag("{COUNTRY}",     pl -> geoIpService.getCountryName(PlayerUtils.getPlayerIp(pl))));
+    /**
+     * List of all supported tags for the welcome message.
+     */
+    private final List<Tag<Player>> availableTags = Arrays.asList(createTag("&", () -> String.valueOf(ChatColor.COLOR_CHAR)), createTag("{PLAYER}", HumanEntity::getName), createTag("{DISPLAYNAME}", Player::getDisplayName), createTag("{DISPLAYNAMENOCOLOR}", Player::getDisplayName), createTag("{ONLINE}", () -> Integer.toString(bukkitService.getOnlinePlayers().size())), createTag("{MAXPLAYERS}", () -> Integer.toString(server.getMaxPlayers())), createTag("{IP}", PlayerUtils::getPlayerIp), createTag("{LOGINS}", () -> Integer.toString(playerCache.getLogged())), createTag("{WORLD}", pl -> pl.getWorld().getName()), createTag("{SERVER}", () -> service.getProperty(PluginSettings.SERVER_NAME)), createTag("{VERSION}", () -> server.getBukkitVersion()), createTag("{COUNTRY}", pl -> geoIpService.getCountryName(PlayerUtils.getPlayerIp(pl))));
 
     private TagReplacer<Player> messageSupplier;
 
@@ -108,9 +100,13 @@ public class WelcomeMessageConfiguration implements Reloadable {
         if (service.getProperty(RegistrationSettings.USE_WELCOME_MESSAGE)) {
             List<String> welcomeMessage = getWelcomeMessage(player);
             if (service.getProperty(RegistrationSettings.BROADCAST_WELCOME_MESSAGE)) {
-                welcomeMessage.forEach(bukkitService::broadcastMessage);
+                welcomeMessage.forEach((message) -> {
+                    bukkitService.broadcastMessage(MiniMessageUtils.parseMiniMessage(message));
+                });
             } else {
-                welcomeMessage.forEach(player::sendMessage);
+                welcomeMessage.forEach((message) -> {
+                    player.spigot().sendMessage(MiniMessageUtils.parseMiniMessage(message));
+                });
             }
         }
     }
