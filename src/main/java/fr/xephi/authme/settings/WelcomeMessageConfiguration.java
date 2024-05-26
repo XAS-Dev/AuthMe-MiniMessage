@@ -73,10 +73,7 @@ public class WelcomeMessageConfiguration implements Reloadable {
             return;
         }
 
-        List<String> welcomeMessage = new ArrayList<>();
-        for (String line : readWelcomeFile()) {
-            welcomeMessage.add(ChatColor.translateAlternateColorCodes('&', line));
-        }
+        List<String> welcomeMessage = readWelcomeFile();
         messageSupplier = TagReplacer.newReplacer(availableTags, welcomeMessage);
     }
 
