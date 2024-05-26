@@ -343,12 +343,12 @@
                                     <shadedPattern>fr.xephi.authme.libs.com.google.gson</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>net.kyori.examination</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.net.kyori.examination</shadedPattern>
+                                    <pattern>google.protobuf</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.google.protobuf</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>net.kyori.option</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.net.kyori.option</shadedPattern>
+                                    <pattern>net.kyori.examination</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.net.kyori.examination</shadedPattern>
                                 </relocation>
                                 <relocation>
                                     <pattern>net.kyori.adventure</pattern>
