@@ -347,13 +347,18 @@
                                     <shadedPattern>fr.xephi.authme.libs.google.protobuf</shadedPattern>
                                 </relocation>
                                 <relocation>
+                                    <pattern>net.kyori.adventure</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.net.kyori.adventure</shadedPattern>
+                                </relocation>
+                                <relocation>
                                     <pattern>net.kyori.examination</pattern>
                                     <shadedPattern>fr.xephi.authme.libs.net.kyori.examination</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>net.kyori.adventure</pattern>
-                                    <shadedPattern>fr.xephi.authme.libs.net.kyori.adventure</shadedPattern>
+                                    <pattern>net.kyori.option</pattern>
+                                    <shadedPattern>fr.xephi.authme.libs.net.kyori.option</shadedPattern>
                                 </relocation>
+
                             </relocations>
                         </configuration>
                     </execution>
@@ -745,10 +750,10 @@
                     <artifactId>junit</artifactId>
                     <groupId>junit</groupId>
                 </exclusion>
-<!--                <exclusion>-->
-<!--                    <artifactId>bungeecord-chat</artifactId>-->
-<!--                    <groupId>net.md-5</groupId>-->
-<!--                </exclusion>-->
+                <!--                <exclusion>-->
+                <!--                    <artifactId>bungeecord-chat</artifactId>-->
+                <!--                    <groupId>net.md-5</groupId>-->
+                <!--                </exclusion>-->
                 <exclusion>
                     <groupId>com.googlecode.json-simple</groupId>
                     <artifactId>json-simple</artifactId>
