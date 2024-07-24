@@ -679,10 +679,10 @@
                     <groupId>org.joml</groupId>
                     <artifactId>joml</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>net.md-5</groupId>
-                    <artifactId>bungeecord-chat</artifactId>
-                </exclusion>
+<!--                <exclusion>-->
+<!--                    <groupId>net.md-5</groupId>-->
+<!--                    <artifactId>bungeecord-chat</artifactId>-->
+<!--                </exclusion>-->
             </exclusions>
         </dependency>
         <dependency>
